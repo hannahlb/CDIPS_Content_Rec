@@ -34,6 +34,9 @@ class WikiPage(ET.Element):
     data : pandas.DataFrame
       DataFrame with information about the page id, title, and raw_text
     webpage : str
+      url
+    page_type : str
+      type of wiki page, e.g. article, category, file, image, list, etc
     '''
     def __init__(self, page):
         ET.Element.__init__(self, page)
@@ -64,7 +67,18 @@ class WikiPage(ET.Element):
                         self.text_format = gchild.text
         self.website = 'https://en.wikipedia.org/wiki/%s' % (self.title.replace(' ', '_'))
 
+        def get_page_type(title):
+            if 'Category:' in title:
+                return 'category'
+            elif 'Portal:' in title:
+                return 'portal'
+            elif 'List of' in title:
+                return 'list'
+            elif 'File:' in title:
+                return 'file'
+            else:
+                return 'article'
+        self.page_type = get_page_type(self.title)
 
-        self.data = pd.DataFrame(columns=['id', 'website', 'text_raw'])
-        self.data.loc[0] = [self.id, self.website, self.text_raw]
-
+        self.data = pd.DataFrame(columns=['website', 'page_type', 'text_raw'])
+        self.data.loc[self.id] = [self.website, self.page_type, self.text_raw]
