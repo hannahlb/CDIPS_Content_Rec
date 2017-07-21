@@ -32,7 +32,7 @@ def execute_query(query, args=()):
 
 @app.route("/viewdb")
 def viewdb():
-    rows = execute_query("""SELECT * FROM Wikipedia""")
+    rows = execute_query("""SELECT id, website FROM Wikipedia""")
     return '<br>'.join(str(row) for row in rows)
 
 @app.route('/')
