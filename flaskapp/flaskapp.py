@@ -1,12 +1,10 @@
-from collections import Counter
-
 import csv
 import sqlite3
     
 from flask import Flask, request, g
 from flask import render_template
     
-DATABASE = '/var/www/html/flaskapp/natlpark.db'
+DATABASE = '/var/www/html/flaskapp/Wikipedia.db'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -34,13 +32,7 @@ def execute_query(query, args=()):
 
 @app.route("/viewdb")
 def viewdb():
-    rows = execute_query("""SELECT * FROM natlpark""")
-    return '<br>'.join(str(row) for row in rows)
-
-@app.route("/state/<state>")
-def state_query(state):
-    rows = execute_query("""SELECT * FROM natlpark WHERE state = ?""",
-                         [state.title()])
+    rows = execute_query("""SELECT * FROM Wikipedia""")
     return '<br>'.join(str(row) for row in rows)
 
 @app.route('/')
@@ -49,9 +41,9 @@ def my_form():
 
 @app.route('/', methods=['POST'])
 def my_form_post():
-    state = request.form['text']
-    rows = execute_query("""SELECT * FROM natlpark WHERE state = ?""",
-                         [state.title()])
+    id_in = request.form['text']
+    rows = execute_query("""SELECT * FROM Wikipedia WHERE id = ?""",
+                         [id_in.title()])
     return '<br>'.join(str(row) for row in rows)
 
 
