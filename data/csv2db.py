@@ -33,11 +33,11 @@ cur = conn.cursor()
 
 cur.execute("""DROP TABLE IF EXISTS Wikipedia""")
 cur.execute("""CREATE TABLE Wikipedia
-            (id integer, website text, text_raw text)""")
+            (id integer, website text, paget_type text,text_raw text)""")
 
 with open(csvfile, 'r') as f:
     reader = csv.reader(f.readlines()[1:])  # exclude header line
-    cur.executemany("""INSERT INTO Wikipedia VALUES (?,?,?)""",
+    cur.executemany("""INSERT INTO Wikipedia VALUES (?,?,?,?)""",
                     (row for row in reader))
 conn.commit()
 conn.close()

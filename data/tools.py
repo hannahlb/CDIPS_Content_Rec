@@ -14,5 +14,5 @@ def merge_Wiki_pages(root):
         page = WikiPage(root[page_index])
         df=df.append(page.data)
     
-    df=df.set_index('id')
+    #df=df.set_index('id')
     return(df)
