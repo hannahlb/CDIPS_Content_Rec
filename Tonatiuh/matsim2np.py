@@ -1,4 +1,19 @@
 def matsim2np(matsim):
+    """
+    Converts a gensim matsim object into a numpy array.
+
+    Input:
+    matsim, gensim matsim object.
+
+    Output:
+    np_sims, numpy array, shape=number_of_documents x number_of_documents
+    Contains similarity scores between two documents.
+
+    Notes:
+    The ordering of the columns, files refers to the initial ordering (before the matrix transformation by lsi, lda, etc).
+    Each cell in the numpy array is the similarity score between two documents.
+
+    """
     import numpy as np
     #matsim to np matrix
     
