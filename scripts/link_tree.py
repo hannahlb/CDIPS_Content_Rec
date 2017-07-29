@@ -18,9 +18,11 @@ def find_internal_wiki_links(text):
     link_titles = []
     link_titles_raw = re.findall(searchstr, text)
     for link_title_raw in link_titles_raw:
-        link_title = re.sub('\|.+', '', link_title_raw)#remove junk at end
-        link_titles.append(link_title[2:-2])
-        link_title = re.sub(' ', '_',  link_title[2:-2])
+        link_title = re.sub('\[\[', '', link_title_raw)#remove brackets
+        link_title = re.sub('\]\]', '', link_title)#remove brackets
+        link_title = re.sub('\|.+', '', link_title)#remove junk at end
+        link_titles.append(link_title)
+        link_title = re.sub(' ', '_',  link_title)
         link_url = 'https://en.wikipedia.org/wiki/%s' % (link_title)
         link_urls.append(link_url)
     return list(set(zip(link_titles, link_urls)))
