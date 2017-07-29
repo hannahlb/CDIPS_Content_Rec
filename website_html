@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <h1>Content Recommender</h1>
+</header>
+  
+<nav>
+  <ul>
+    <li><a href="https://www.nytimes.com/">New York Times</a></li>
+    <li><a href="https://www.theguardian.com/us">The Guardian</a></li>
+  </ul>
+</nav>
+
+<article>
+  <h1>Please Enter ID of Wikipedia article you would like a recommendation for:</h1>
+  <form action="." method="POST">
+	<input type="text" name="text">
+	<input type="submit" name="my-form" value="show">
+  </form>
+	
+</article>
+
+<footer>CDIPS</footer>
+<img src="150202142706-new-york-times-profit-780x439.jpg" alt="articles image" width="780" height="439">
+
+</div>
+</body>
+</html>

@@ -80,5 +80,5 @@ class WikiPage(ET.Element):
                 return 'article'
         self.page_type = get_page_type(self.title)
 
-        self.data = pd.DataFrame(columns=['website', 'page_type', 'text_raw'])
-        self.data.loc[self.id] = [self.website, self.page_type, self.text_raw]
+        self.data = pd.DataFrame(columns=['website', 'title','page_type', 'text_raw'])
+        self.data.loc[self.id] = [self.website, self.title, self.page_type, self.text_raw]
