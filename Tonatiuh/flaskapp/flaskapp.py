@@ -2,7 +2,7 @@ import csv
 import sqlite3
 
 from flask import Flask, request, g
-from flask import render_template
+from flask import render_template,url_for,redirect
 
 #DATABASE = '/var/www/html/flaskapp/Wikipedia-sims-hdp.db'
 DATABASE = '/Users/rangel/CDIPS_Content_Rec/Tonatiuh/flaskapp/Wikipedia-lsi.db'
@@ -46,6 +46,21 @@ def my_form_post():
     rows = execute_query("""SELECT other_titles, other_urls,scores FROM Wikipedia WHERE id =  ?""",
                          [id_in.title()])
     return render_template("my-form.html", headers = rows)
+
+
+@app.route("/click_on_url/<url_id>")
+def click_on_url(url_id):
+    wiki_url='https://en.wikipedia.org/?curid={}'.format(url_id)
+    return redirect(wiki_url)
+
+@app.route('/click_on_foo')
+def click_on_foo():
+    return redirect(url_for('foo'))
+    #return redirect("http://www.google.com")
+
+@app.route('/foo')
+def foo():
+    return 'Hello Foo!'
 
 
 if __name__ == '__main__':
