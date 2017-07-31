@@ -57,10 +57,6 @@ def result():
     if request.method == 'POST':
         # Return a randomly 0 or 1
         db_id=random.randint(0,2)
-        if db_id == 0: #For LSI
-             result_page="result-lsi.html"
-        if db_id == 1: #For LDA
-             result_page="result-lda.html"
         title_in = request.form['text']
         rows = execute_query(db_id,"""SELECT * FROM Wikipedia WHERE title =?""",
                              [title_in])
@@ -74,8 +70,7 @@ def result():
             urls = urls.replace('[','').replace(']','').replace('\'','').replace(' ','').split(',')
             scores = scores.replace('[','').replace(']','').replace(' ','').split(',')
             new_rows = [(title,url,score) for title,url,score in zip(titles,urls,scores)]
-            print(new_rows)
-            return render_template(result_page,rows = new_rows)
+            return render_template('result.html',rows = new_rows, db_id = db_id)
 
 
 @app.route("/click_on_url_lsi/<path:wiki_url>")
