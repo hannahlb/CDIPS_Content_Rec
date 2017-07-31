@@ -4,7 +4,7 @@ import sqlite3
 from flask import Flask, request, g
 from flask import render_template
     
-DATABASE = '/var/www/html/flaskapp/wikisearch.db'
+DATABASE = '/var/www/html/flaskapp/Wikipedia-lsi.db'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -32,7 +32,7 @@ def execute_query(query, args=()):
 
 @app.route("/viewdb")
 def viewdb():
-    rows = execute_query("""SELECT title, url FROM wikisearch""")
+    rows = execute_query("""SELECT title, url FROM Wikipedia""")
     return '<a href = "http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com">Go back</a><br>'+'<br>'.join(str(row) for row in rows)
                                                                                                                   
 @app.route('/')
@@ -41,18 +41,22 @@ def my_form():
 
 @app.route('/', methods=['POST'])
 def my_form_post():
-    id_in = request.form['text']
-    rows = execute_query("""SELECT * FROM wikisearch WHERE title = ?""",
-                         [id_in.title()])
-    return '<br>'.join(str(row) for row in rows)
+    return render_template("my-form.html") 
 
 @app.route('/result',methods = ['POST', 'GET'])
 def result():
     if request.method == 'POST':
         title_in = request.form['text']
-        rows = execute_query("""SELECT * FROM wikisearch WHERE title =?""",
+        rows = execute_query("""SELECT * FROM Wikipedia WHERE title =?""",
                              [title_in.title()])
-    return render_template("result.html",rows = rows)
+        titles = rows[0][3] # a string that needs to be parsed
+        urls = rows[0][4]   # string
+        scores = rows[0][5] # string
+        titles = titles.replace('[','').replace(']','').replace('\'','').split(',')
+        urls = urls.replace('[','').replace(']','').replace('\'','').split(',')
+        scores = scores.replace('[','').replace(']','').replace(' ','').split(',')
+        new_rows = [(title,url,score) for title,url,score in zip(titles,urls,scores)]
+    return render_template("result.html",rows = new_rows)
 
 if __name__ == '__main__':
     app.run()
