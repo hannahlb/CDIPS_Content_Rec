@@ -59,9 +59,10 @@ article {
   
 <article>
   <h1>Please enter exact title of the Wikipedia article to find similar articles:</h1>
-  <a href="http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com/viewdb">list of articles</a>
+  <a href="http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com/viewdb">list of articles</a><br>
+
   <form action="{{ url_for('result') }}"  method="POST">
-	<input type="text" name="text">
+	<input type="text" name="text"> 
 	<input type="submit" name="my-form" value="Show">
   </form>
 

@@ -2,7 +2,7 @@ import csv
 import sqlite3
     
 from flask import Flask, request, g
-from flask import render_template, url_for, redirect
+from flask import render_template
     
 DATABASE = '/var/www/html/flaskapp/Wikipedia-lsi.db'
 
@@ -48,7 +48,7 @@ def result():
     if request.method == 'POST':
         title_in = request.form['text']
         rows = execute_query("""SELECT * FROM Wikipedia WHERE title =?""",
-                             [title_in])
+                             [title_in.title()])
         if not rows:
             return 'Error: This title is not in the database.'+'<br><a href = "http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com">Go back</a>'
         else:
@@ -60,21 +60,6 @@ def result():
             scores = scores.replace('[','').replace(']','').replace(' ','').split(',')
             new_rows = [(title,url,score) for title,url,score in zip(titles,urls,scores)]
             return render_template("result.html",rows = new_rows)
-
-
-@app.route("/click_on_url/<url_id>")
-def click_on_url(url_id):
-    wiki_url='https://en.wikipedia.org/?curid={}'.format(url_id)
-    return redirect(wiki_url)
-
-@app.route('/click_on_foo')
-def click_on_foo():
-    return redirect(url_for('foo'))
-    #return redirect("http://www.google.com")
-
-@app.route('/foo')
-def foo():
-    return 'Hello Foo!'
 
 if __name__ == '__main__':
     app.run()

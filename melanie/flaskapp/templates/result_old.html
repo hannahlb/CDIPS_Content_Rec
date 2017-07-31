@@ -64,12 +64,6 @@ var trackOutboundLink = function(url) {
 }
 </script>
 
-<script>
-function update_url() {
-    redirect(url_for('viewdb'));
-}
-</script>
-
 </head>
 <body>
 
@@ -85,14 +79,9 @@ function update_url() {
   <ul>
 
     {% for row in rows %}
-    <!-- track outbound clicks with Google Analytics 
+    <!-- track outbound clicks -->
     <li><a href={{ row[1] }} onclick="trackOutboundLink({{ row[1] }}); return false;">{{ row[0] }}</a>, {{ row[2] }} </li>
-    -->
-    
-    <!-- track outbound clicks using redirect -->
-    <li><a href={{ row[1] }} onclick="update_url()">{{ row[0] }}</a>, {{ row[2] }} </li>
-
-    <!-- old: no click tracking
+    <!-- old
     <li><a href={{ row[1] }}>{{ row[0] }}</a>, {{ row[2] }} </li>
     -->
     {% endfor %}
