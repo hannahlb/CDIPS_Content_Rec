@@ -9,19 +9,33 @@ div.container {
 
 header, footer {
     padding: 1em;
-    color: lavender;
+    color: white;
     background-color: black;
     clear: left;
     text-align: center;
 }
 
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
 
 article {
+    margin-left: 170px;
     border-left: 1px solid gray;
     padding: 1em;
     overflow: hidden;
-    background-color: silver;
-    text-align: center;
 }
 </style>
 <script>
@@ -29,8 +43,10 @@ article {
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-103560332-2', 'auto');
+
+  ga('create', 'UA-103560332-1', 'auto');
   ga('send', 'pageview');
+
 </script>
 </head>
 <body>
@@ -40,20 +56,15 @@ article {
 <header>
    <h1>CONTENT RECOMMENDER</h1>
 </header>
-
-
+  
 <article>
-  <h1>Please Enter ID of Wikipedia article you would like a recommendation for:</h1>
-  <form action="/" method="POST">
-	<input type="text" name="text">
+  <h1>Please enter exact title of the Wikipedia article to find similar articles:</h1>
+  <a href="http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com/viewdb">list of articles</a><br>
+
+  <form action="{{ url_for('result') }}"  method="POST">
+	<input type="text" name="text"> 
 	<input type="submit" name="my-form" value="Show">
   </form>
-<header>
-<ul>
-{% for header in headers %}
-<li>{{ header[0]}}</li>
- {% endfor %}
-</ul></header>
 
 	
 </article>

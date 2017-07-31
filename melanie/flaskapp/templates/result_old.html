@@ -48,6 +48,22 @@ article {
   ga('send', 'pageview');
 
 </script>
+
+<script>
+/**
+* Function that tracks a click on an outbound link in Analytics.
+* This function takes a valid URL string as an argument, and uses that URL string
+* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+* using 'navigator.sendBeacon' in browser that support it.
+*/
+var trackOutboundLink = function(url) {
+   ga('send', 'event', 'outbound', 'click', url, {
+     'transport': 'beacon',
+     'hitCallback': function(){document.location = url;}
+   });
+}
+</script>
+
 </head>
 <body>
 
@@ -57,17 +73,22 @@ article {
    <h1>CONTENT RECOMMENDER</h1>
 </header>
   
+
 <article>
-  <h1>Please enter exact title of the Wikipedia article to find similar articles:</h1>
-  <a href="http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com/viewdb">list of articles</a>
-  <form action="{{ url_for('result') }}"  method="POST">
-	<input type="text" name="text">
-	<input type="submit" name="my-form" value="Show">
-  </form>
+  <h1>Similar articles: </h1>
+  <ul>
 
-	
+    {% for row in rows %}
+    <!-- track outbound clicks -->
+    <li><a href={{ row[1] }} onclick="trackOutboundLink({{ row[1] }}); return false;">{{ row[0] }}</a>, {{ row[2] }} </li>
+    <!-- old
+    <li><a href={{ row[1] }}>{{ row[0] }}</a>, {{ row[2] }} </li>
+    -->
+    {% endfor %}
+
+  </ul> 
+  <a href = "http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com">Go back to home page</a>
 </article>
-
 
 
 <footer>CDIPS</footer>

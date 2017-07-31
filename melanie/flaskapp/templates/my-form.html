@@ -57,31 +57,15 @@ article {
    <h1>CONTENT RECOMMENDER</h1>
 </header>
   
-<nav>
-  <ul>
-    <li><a href="https://www.wikipedia.org/">Wikipedia</a></li>
-    <li><a href="https://www.nytimes.com/">New York Times</a></li>
-    <li><a href="https://www.theguardian.com/us">The Guardian</a></li>
-  </ul>
-</nav>
-
 <article>
   <h1>Please enter exact title of the Wikipedia article to find similar articles:</h1>
-  <a href="http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com/viewdb">list of articles</a>
+  <a href="http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com/viewdb">list of articles</a><br>
+
   <form action="{{ url_for('result') }}"  method="POST">
-	<input type="text" name="text">
+	<input type="text" name="text"> 
 	<input type="submit" name="my-form" value="Show">
   </form>
-<h2>Was the article given relevant?</h2>
-    <script type="text/javascript">
-    var clicks = 0;
-    function onClick() {
-        clicks += 1;
-        document.getElementById("clicks").innerHTML = clicks;
-    };
-    </script>
-    <button type="button" onClick="onClick()">Yes</button>
-    <p>Clicks: <a id="clicks">0</a></p>
+
 	
 </article>
 
