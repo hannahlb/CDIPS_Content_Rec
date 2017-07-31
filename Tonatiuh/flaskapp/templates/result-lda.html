@@ -93,7 +93,11 @@ function update_url() {
     <li><a href={{ row[1] }} onclick="update_url()">{{ row[0] }}</a>, {{ row[2] }} </li>
     -->
 
-    <li><a href=http://0.0.0.0:8000/click_on_url/{{row[1]}} onclick="update_url()">{{ row[0] }}</a>, {{ row[2] }} </li>
+    <!---
+    <li><a href=http://0.0.0.0:8000/click_on_url_lda/{{row[1]}} onclick="update_url()">{{ row[0] }}</a>, {{ row[2] }} </li>
+    -->
+
+    <li><a href='http://0.0.0.0:8000/click_on_url_lda/{{row[1]}}' onclick="update_url()"> {{row[0]}}</a>, {{row[2]}}</li>
 
     <!-- old: no click tracking
     <li><a href={{ row[1] }}>{{ row[0] }}</a>, {{ row[2] }} </li>
