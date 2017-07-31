@@ -76,6 +76,8 @@ class WikiPage(ET.Element):
                 return 'list'
             elif 'File:' in title:
                 return 'file'
+            elif 'Image:' in title:
+                return 'image'
             else:
                 return 'article'
         self.page_type = get_page_type(self.title)
