@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>
+div.container {
+    width: 100%;
+    border: 1px solid gray;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: black;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: left;
+    max-width: 160px;
+    margin: 0;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+   
+nav ul a {
+    text-decoration: none;
+}
+
+article {
+    margin-left: 170px;
+    border-left: 1px solid gray;
+    padding: 1em;
+    overflow: hidden;
+}
+</style>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-103560332-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+<script>
+/**
+* Function that tracks a click on an outbound link in Analytics.
+* This function takes a valid URL string as an argument, and uses that URL string
+* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+* using 'navigator.sendBeacon' in browser that support it.
+*/
+var trackOutboundLink = function(url) {
+   ga('send', 'event', 'outbound', 'click', url, {
+     'transport': 'beacon',
+     'hitCallback': function(){document.location = url;}
+   });
+}
+</script>
+
+</head>
+<body>
+
+<div class="container">
+
+<header>
+   <h1>CONTENT RECOMMENDER</h1>
+</header>
+  
+
+<article>
+  <h1>Similar articles: </h1>
+  <ul>
+
+    {% for row in rows %}
+    <!-- track outbound clicks -->
+    <li><a href={{ row[1] }} onclick="trackOutboundLink({{ row[1] }}); return false;">{{ row[0] }}</a>, {{ row[2] }} </li>
+    <!-- old
+    <li><a href={{ row[1] }}>{{ row[0] }}</a>, {{ row[2] }} </li>
+    -->
+    {% endfor %}
+
+  </ul> 
+  <a href = "http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com">Go back to home page</a>
+</article>
+
+
+<footer>CDIPS</footer>
+</div>
+<img src="/static/Circle_reflect_wikipedia.jpg" alt="articles image test" width="100%" height="100%" align="center">
+
+</body>
+</html>
