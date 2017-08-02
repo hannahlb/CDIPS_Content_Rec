@@ -1,12 +1,17 @@
 import csv
 import sqlite3
+import datetime
     
 from flask import Flask, request, g
 from flask import render_template, url_for, redirect
     
-#DATABASE = '/var/www/html/flaskapp/Wikipedia-sims-hdp.db'
+#DATABASE_LSI = '/var/www/html/flaskapp/Wikipedia-sims-lsi.db'
+#DATABASE_LDA = '/var/www/html/flaskapp/Wikipedia-sims-lda.db'
+
 DATABASE_LSI = '/Users/rangel/CDIPS_Content_Rec/Tonatiuh/flaskapp/Wikipedia-lsi.db'
 DATABASE_LDA = '/Users/rangel/CDIPS_Content_Rec/Tonatiuh/flaskapp/Wikipedia-lda.db'
+HISTORY_LSI='/Users/rangel/CDIPS_Content_Rec/Tonatiuh/flaskapp/history-lsi.dat'
+HISTORY_LDA='/Users/rangel/CDIPS_Content_Rec/Tonatiuh/flaskapp/history-lda.dat'
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -40,8 +45,9 @@ def execute_query(db_id,query, args=()):
 
 @app.route("/viewdb")
 def viewdb():
-    rows = execute_query("""SELECT itle, url FROM Wikipedia""")
-    return '<a href = "http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com">Go back</a><br>'+'<br>'.join(str(row) for row in rows)
+    db_id=0
+    rows = execute_query(db_id,"""SELECT itle, url FROM Wikipedia""")
+    return '<a href = "http://ec2-13-58-1-131.us-east-2.compute.amazonaws.com">Go back</a><br>'+'<br>'.join(str(row) for row in rows)
                                                                                                                   
 @app.route('/')
 def my_form():
@@ -75,12 +81,18 @@ def result():
 
 @app.route("/click_on_url_lsi/<path:wiki_url>")
 def click_on_url_lsi(wiki_url):
+    f = open (HISTORY_LSI,"+a")
+    f.write('{}\n' .format(datetime.datetime.now()))
+    f.close()
     return redirect(wiki_url)
 
 @app.route("/click_on_url_lda/<path:wiki_url>")
 def click_on_url_lda(wiki_url):
+    f = open (HISTORY_LDA,"+a")
+    f.write('{}\n' .format(datetime.datetime.now()))
+    f.close()
     return redirect(wiki_url)
 
 if __name__ == '__main__':
-    #app.run()
-    app.run(host='0.0.0.0', port=8000,debug='True')
+    app.run()
+    #app.run(host='0.0.0.0', port=8000,debug='True')
