@@ -1,5 +1,7 @@
 import csv
 import sqlite3
+import time
+import datetime
     
 from flask import Flask, request, g
 from flask import render_template, url_for, redirect
@@ -13,7 +15,7 @@ app.config.from_object(__name__)
 def connect_to_database(db_id):
     if db_id == 0: # LSI
         return sqlite3.connect(app.config['DATABASE_LSI'])
-    elif db_if == 1: # LDA
+    elif db_id == 1: # LDA
         return sqlite3.connect(app.config['DATABASE_LDA'])
     else:
         print("Wrong db_id\n")
@@ -75,10 +77,23 @@ def result():
 
 @app.route("/click_on_url_lsi/<path:wiki_url>")
 def click_on_url_lsi(wiki_url):
+    wiki_url = wiki_url.replace('https:/en','https://en')
+    ts = time.time()
+    st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+    #with app.open_resource('static/lsi_clicks.txt') as f:
+    #with open(url_for('static',filename='lsi_clicks.txt'),'a') as f:
+    #with open('lsi_clicks.txt','a') as f:
+    with open('/tmp/lsi_clicks.txt','a') as f:
+        f.write(st+'\n')
     return redirect(wiki_url)
 
 @app.route("/click_on_url_lda/<path:wiki_url>")
 def click_on_url_lda(wiki_url):
+    wiki_url = wiki_url.replace('https:/en','https://en')
+    ts = time.time()
+    st = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+    with open('/tmp/lda_clicks.txt','a') as f:
+        f.write(st+'\n')
     return redirect(wiki_url)
 
 if __name__ == '__main__':

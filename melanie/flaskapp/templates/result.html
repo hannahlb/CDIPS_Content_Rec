@@ -64,11 +64,6 @@ var trackOutboundLink = function(url) {
 }
 </script>
 
-<script>
-function update_url() {
-    redirect(url_for('viewdb'));
-}
-</script>
 
 </head>
 <body>
@@ -89,19 +84,11 @@ function update_url() {
     <li><a href={{ row[1] }} onclick="trackOutboundLink({{ row[1] }}); return false;">{{ row[0] }}</a>, {{ row[2] }} </li>
     -->
     
-    <!-- track outbound clicks using redirect 
-    <li><a href={{ row[1] }} onclick="update_url()">{{ row[0] }}</a>, {{ row[2] }} </li>
-    -->
-
-    <!---
-    <li><a href=http://0.0.0.0:8000/click_on_url_lsi/{{row[1]}} onclick="update_url()">{{ row[0] }}</a>, {{ row[2] }} </li>
-    -->
-
     {% if db_id == 0: %} 
-    <li><a href='http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com/click_on_url_lsi/{{row[1]}}' onclick="uptdate_url()"> {{row[0]}}</a>, {{row[2]}} </li>
+    <li><a href='http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com/click_on_url_lsi/{{row[1]}}'> {{row[0]}}</a>, {{row[2]}} </li>
     {% endif %} 
     {% if db_id == 1: %}
-    <li><a href='http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com/click_on_url_lda/{{row[1]}}' onclick="uptdate_url()"> {{row[0]}}</a>, {{row[2]}} </li>
+    <li><a href='http://ec2-34-212-145-50.us-west-2.compute.amazonaws.com/click_on_url_lda/{{row[1]}}'> {{row[0]}}</a>, {{row[2]}} </li>
     {% endif %} 
 
     <!-- old: no click tracking
